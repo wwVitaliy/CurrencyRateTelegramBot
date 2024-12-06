@@ -1,0 +1,28 @@
+@startuml
+
+stereotype "Library"{
+    Jsoup
+    Gson
+    TelegramBots
+}
+
+"Library" <.. "Application" : use
+
+package "Application"{
+
+    interface CurrencyService{
+        + getRate(Currency c) : double
+    }
+
+    class PrivatBankCurrencyService
+
+    class TelegramBotService
+
+
+
+    PrivatBankCurrencyService <|-- CurrencyService
+
+}
+
+
+@enduml

@@ -4,6 +4,7 @@ stereotype "Library"{
     Jsoup
     Gson
     TelegramBots
+    Lombok
 }
 
 "Library" <.. "Application" : use

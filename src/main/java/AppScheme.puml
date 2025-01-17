@@ -18,11 +18,14 @@ package "Application"{
 
     class TelegramBotService
 
+    enum Currency{
+        USD
+        EUR
+        UAH
+    }
 
-
-    PrivatBankCurrencyService <|-- CurrencyService
+    PrivatBankCurrencyService --|> CurrencyService
 
 }
-
 
 @enduml

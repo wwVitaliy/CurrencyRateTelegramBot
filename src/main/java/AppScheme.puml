@@ -4,28 +4,52 @@ stereotype "Library"{
     Jsoup
     Gson
     TelegramBots
-    Lombok
+    TelegramBotsExtensions
 }
 
 "Library" <.. "Application" : use
+package "TelegramAPI"{
+}
+package "PrivarAPI"{
+}
 
 package "Application"{
+    class TelegramBotApp
 
-    interface CurrencyService{
-        + getRate(Currency c) : double
+    package "currency"{
+
+        interface CurrencyService{
+            + getRate(Currency c) : double
+        }
+
+        class PrivatBankCurrencyService
+
+        enum Currency{
+            USD
+            EUR
+            UAH
+        }
+
+        PrivatBankCurrencyService --|> CurrencyService
+        PrivatBankCurrencyService --> "PrivarAPI"
     }
 
-    class PrivatBankCurrencyService
+    package "telegram"{
+        class BotConstants
+        class TelegramBotService
+        class CurrencyTelegramBot
+        package "commands"{
+            class HelpCommand
+            class StartCommand
+        }
 
-    class TelegramBotService
-
-    enum Currency{
-        USD
-        EUR
-        UAH
+        TelegramBotService --> "TelegramAPI"
+        TelegramBotService -- CurrencyTelegramBot
+        CurrencyTelegramBot --> "commands"
+        "commands" --> "TelegramAPI"
     }
 
-    PrivatBankCurrencyService --|> CurrencyService
+    TelegramBotApp --> TelegramBotService
 
 }
 
